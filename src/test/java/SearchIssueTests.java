@@ -26,19 +26,13 @@ public class SearchIssueTests extends TestBase{
     public void searchIssueLambdaStep() {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
-        step("Открываем главную страницу", () -> {
-            open("");
-        });
+        step("Открываем главную страницу", () -> open(""));
         step("Ищем репозиторий " + REPOSITORY, () -> {
             $(".search-input").click();
             $("#query-builder-test").setValue(REPOSITORY).pressEnter();
         });
-        step("Переходим в репозиторий" + REPOSITORY, () -> {
-            $(linkText(REPOSITORY)).click();
-        });
-        step("Переходим по табу Issues", () -> {
-            $("#issues-tab").click();
-        });
+        step("Переходим в репозиторий" + REPOSITORY, () -> $(linkText(REPOSITORY)).click());
+        step("Переходим по табу Issues", () -> $("#issues-tab").click());
         step("Проверяем наличие Issue с номером " + NUMBER + " и названием " + TITLE, () -> {
             $("#issue_" + NUMBER).should(Condition.exist).shouldHave(text(TITLE));
         });
